@@ -5,7 +5,7 @@ import { deleteProduct, getProducts } from '../../services/products.service';
 import { DeleteOutlined } from '@ant-design/icons';
 
 function Products() {
-  const [products, setProducts] = useState([]); // const products = [];
+  const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
