@@ -1,9 +1,9 @@
 # Cadastro de Produtos
 
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=white)
-![Top Language](https://img.shields.io/github/languages/top/Carolaynebarret/cadastrodeprodutos)
-![License](https://img.shields.io/github/license/Carolaynebarret/cadastrodeprodutos)
-![Last Commit](https://img.shields.io/github/last-commit/Carolaynebarret/cadastrodeprodutos)
+![Top Language](https://img.shields.io/github/languages/top/Carolaynebarret/estoque-triggers-mysql)
+![License](https://img.shields.io/github/license/Carolaynebarret/estoque-triggers-mysql)
+![Last Commit](https://img.shields.io/github/last-commit/Carolaynebarret/estoque-triggers-mysql)
 
 Projeto acadêmico da disciplina de Banco de Dados, com foco no uso de **triggers/procedures em MySQL** para automatizar regras de negócio: aplicação web para controle de estoque de uma pequena loja, com cadastro de produtos e fornecedores, registro de vendas e reposição automática de estoque disparada por uma trigger no banco quando a quantidade de um produto fica abaixo do limite mínimo. O backend expõe uma API REST em Node.js/Express sobre MySQL (via Sequelize) e o frontend é uma SPA em React que consome essa API.
 
