@@ -1,5 +1,6 @@
 # Cadastro de Produtos
 
+![CI](https://github.com/Carolaynebarret/estoque-triggers-mysql/actions/workflows/ci.yml/badge.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=white)
 ![Top Language](https://img.shields.io/github/languages/top/Carolaynebarret/estoque-triggers-mysql)
 ![License](https://img.shields.io/github/license/Carolaynebarret/estoque-triggers-mysql)
@@ -34,23 +35,36 @@ Projeto acadêmico da disciplina de Banco de Dados, com foco no uso de **trigger
 - Axios
 
 **Infraestrutura**
-- Docker / Docker Compose (banco MySQL para desenvolvimento local)
+- Docker / Docker Compose (sobe o app inteiro: banco, API e frontend)
+- GitHub Actions (CI: valida build do backend/frontend e roda as migrations a cada push)
 
 ## Como executar
 
-### Pré-requisitos
+### Opção 1 — Docker (recomendado, um único comando)
+
+Pré-requisito: Docker e Docker Compose.
+
+```bash
+docker compose up --build
+```
+
+Isso sobe três serviços: MySQL (com as migrations e a trigger de reposição de estoque já aplicadas automaticamente no boot), a API Express em `http://localhost:8081` e o frontend React em `http://localhost:3000`.
+
+### Opção 2 — Manual
+
+#### Pré-requisitos
 
 - Node.js 18+ e npm
-- Docker e Docker Compose (para subir o banco MySQL local)
+- Docker e Docker Compose (para subir só o banco MySQL local)
 
-### Backend
+#### Backend
 
 ```bash
 # na raiz do projeto
 npm install
 
 # suba o banco de dados MySQL
-docker compose up -d
+docker compose up -d db
 
 # copie o arquivo de variáveis de ambiente e ajuste se necessário
 cp .env.example .env
@@ -64,7 +78,7 @@ npm start
 npm run start:dev
 ```
 
-### Variáveis de ambiente
+#### Variáveis de ambiente
 
 As variáveis usadas pelo backend estão documentadas em [`.env.example`](.env.example):
 
@@ -79,7 +93,7 @@ As variáveis usadas pelo backend estão documentadas em [`.env.example`](.env.e
 
 Os valores padrão acima correspondem ao `docker-compose.yml` incluso no projeto (uso local/desenvolvimento apenas).
 
-### Frontend
+#### Frontend
 
 ```bash
 cd client
@@ -100,6 +114,8 @@ npm run build
 
 O projeto ainda não possui suíte de testes automatizados, nem no backend nem no frontend (os scripts `npm test` de ambos os projetos são apenas placeholders/padrão do Create React App). Fica registrado no roadmap abaixo.
 
+O CI (`.github/workflows/ci.yml`) cobre o que dá pra validar sem uma suíte de testes: instala as dependências, builda o frontend e sobe o backend de verdade contra um MySQL real, rodando as migrations (incluindo a trigger) e checando se a API responde em `/products`.
+
 ## Estrutura de pastas
 
 ```
@@ -112,13 +128,17 @@ O projeto ainda não possui suíte de testes automatizados, nem no backend nem n
 ├── database/
 │   ├── migrations/         # Migrations do sequelize-cli
 │   └── scripts/            # Scripts SQL usados pelas migrations (triggers/procedures)
-├── docker-compose.yml      # Banco MySQL para desenvolvimento local
-├── client/                 # Frontend React (SPA)
+├── Dockerfile               # Imagem do backend
+├── docker-entrypoint.sh     # Aguarda o MySQL, roda migrations e inicia a API
+├── docker-compose.yml       # Orquestra banco + backend + frontend
+├── .github/workflows/ci.yml # Pipeline de CI (build + validação end-to-end)
+├── client/                  # Frontend React (SPA)
+│   ├── Dockerfile           # Build do frontend servido via nginx
 │   └── src/
-│       ├── pages/          # Telas (Produtos, Vendas)
-│       ├── components/     # Formulários (FormProduct, FormSale)
-│       └── services/       # Chamadas HTTP à API (axios)
-└── docs/images/            # Screenshots do projeto (ver docs/images/README.md)
+│       ├── pages/           # Telas (Produtos, Vendas)
+│       ├── components/      # Formulários (FormProduct, FormSale)
+│       └── services/        # Chamadas HTTP à API (axios)
+└── docs/images/              # Screenshots do projeto (ver docs/images/README.md)
 ```
 
 ## Roadmap
