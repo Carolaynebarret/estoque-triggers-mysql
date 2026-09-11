@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/Carolaynebarret/cadastrodeprodutos)
 ![Last Commit](https://img.shields.io/github/last-commit/Carolaynebarret/cadastrodeprodutos)
 
-Aplicação web para controle de estoque de uma pequena loja: cadastro de produtos e fornecedores, registro de vendas e geração automática de pedidos de compra quando o estoque de um produto fica baixo. O backend expõe uma API REST em Node.js/Express sobre MySQL (via Sequelize) e o frontend é uma SPA em React que consome essa API.
+Projeto acadêmico da disciplina de Banco de Dados, com foco no uso de **triggers/procedures em MySQL** para automatizar regras de negócio: aplicação web para controle de estoque de uma pequena loja, com cadastro de produtos e fornecedores, registro de vendas e reposição automática de estoque disparada por uma trigger no banco quando a quantidade de um produto fica abaixo do limite mínimo. O backend expõe uma API REST em Node.js/Express sobre MySQL (via Sequelize) e o frontend é uma SPA em React que consome essa API.
 
 ## Funcionalidades
 
